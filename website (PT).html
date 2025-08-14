@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quizlet - Test Your Knowledge</title>
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 50%, #fff3e0 100%);
+
+            min-height: 100vh;
+
+            color: #333;
+
+        }
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+        }
+
+        .header {
+
+            background: rgba(255, 255, 255, 0.95);
+
+            padding: 1rem 2rem;
+
+            border-radius: 15px;
+
+            margin-bottom: 2rem;
+
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+        }
+
+        .logo {
+
+            font-size: 2rem;
+
+            font-weight: bold;
+
+            color: #667eea;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .logo:hover {
+
+            transform: scale(1.05);
+
+            color: #5a67d8;
+
+        }
+
+        .nav-buttons {
+
+            display: flex;
+
+            gap: 1rem;
+
+            flex-wrap: wrap;
+
+        }
+
+        .btn {
+
+            padding: 0.75rem 1.5rem;
+
+            border: none;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            font-size: 1rem;
+
+            font-weight: 600;
+
+            transition: all 0.3s ease;
+
+            text-decoration: none;
+
+            display: inline-block;
+
+            text-align: center;
+
+        }
+
+        .btn-primary {
+
+            background: linear-gradient(45deg, #667eea, #764ba2);
+
+            color: white;
+
+        }
+
+        .btn-primary:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+
+        }
+
+        .btn-secondary {
+
+            background: #f8f9fa;
+
+            color: #667eea;
+
+            border: 2px solid #667eea;
+
+        }
+
+        .btn-secondary:hover {
+
+            background: #667eea;
+
+            color: white;
+
+        }
+
+        .page {
+
+            display: none;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            border-radius: 15px;
+
+            padding: 2rem;
+
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+            min-height: 500px;
+
+        }
+
+        .page.active {
+
+            display: block;
+
+        }
+
+        .welcome-section {
+
+            text-align: center;
+
+            margin-bottom: 3rem;
+
+        }
+
+        .welcome-section h1 {
+
+            font-size: 3rem;
+
+            color: #667eea;
+
+            margin-bottom: 1rem;
+
+        }
+
+        .welcome-section p {
+
+            font-size: 1.2rem;
+
+            color: #666;
+
+            line-height: 1.6;
+
+            max-width: 600px;
+
+            margin: 0 auto;
+
+        }
+
+        .features {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+            gap: 2rem;
+
+            margin: 3rem 0;
+
+        }
+
+        .feature-card {
+
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+
+            padding: 2rem;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            color: white;
+
+            transform: translateY(0);
+
+            transition: transform 0.3s ease;
+
+        }
+
+        .feature-card:hover {
+
+            transform: translateY(-5px);
+
+        }
+
+        .feature-card h3 {
+
+            font-size: 1.5rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+        .login-form, .quiz-container {
+
+            max-width: 400px;
+
+            margin: 0 auto;
+
+        }
+
+        .form-group {
+
+            margin-bottom: 1.5rem;
+
+        }
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 0.5rem;
+
+            font-weight: 600;
+
+            color: #555;
+
+        }
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 0.75rem;
+
+            border: 2px solid #e1e5e9;
+
+            border-radius: 10px;
+
+            font-size: 1rem;
+
+            transition: border-color 0.3s ease;
+
+        }
+
+        .form-group input:focus {
+
+            outline: none;
+
+            border-color: #667eea;
+
+        }
+
+        .categories {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+            gap: 1.5rem;
+
+            margin: 2rem 0;
+
+        }
+
+        .category-card {
+
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+
+            padding: 2rem;
+
+            border-radius: 15px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            border: 3px solid transparent;
+
+        }
+
+        .category-card:hover {
+
+            transform: translateY(-3px);
+
+            border-color: #667eea;
+
+        }
+
+        .category-card h3 {
+
+            color: #333;
+
+            margin-bottom: 0.5rem;
+
+        }
+
+        .quiz-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 2rem;
+
+            flex-wrap: wrap;
+
+            gap: 1rem;
+
+        }
+
+        .timer {
+
+            background: #ff6b6b;
+
+            color: white;
+
+            padding: 0.5rem 1rem;
+
+            border-radius: 25px;
+
+            font-weight: bold;
+
+            font-size: 1.1rem;
+
+        }
+
+        .question-card {
+
+            background: #f8f9fa;
+
+            padding: 2rem;
+
+            border-radius: 15px;
+
+            margin-bottom: 2rem;
+
+        }
+
+        .question-card h3 {
+
+            font-size: 1.3rem;
+
+            margin-bottom: 1.5rem;
+
+            color: #333;
+
+        }
+
+        .options {
+
+            display: grid;
+
+            gap: 1rem;
+
+        }
+
+        .option {
+
+            padding: 1rem;
+
+            background: white;
+
+            border: 2px solid #e1e5e9;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .option:hover {
+
+            border-color: #667eea;
+
+            background: #f0f4ff;
+
+        }
+
+        .option.selected {
+
+            border-color: #667eea;
+
+            background: #667eea;
+
+            color: white;
+
+        }
+
+        .scoreboard {
+
+            background: #f8f9fa;
+
+            padding: 2rem;
+
+            border-radius: 15px;
+
+            margin: 2rem 0;
+
+        }
+
+        .scoreboard h3 {
+
+            text-align: center;
+
+            margin-bottom: 1.5rem;
+
+            color: #667eea;
+
+        }
+
+        .score-item {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            padding: 0.75rem;
+
+            background: white;
+
+            margin-bottom: 0.5rem;
+
+            border-radius: 8px;
+
+            border-left: 4px solid #667eea;
+
+        }
+
+        .user-info {
+
+            color: #667eea;
+
+            font-weight: 600;
+
+            margin-bottom: 1rem;
+
+        }
+
+        .quiz-result {
+
+            text-align: center;
+
+            padding: 2rem;
+
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+            color: white;
+
+            border-radius: 15px;
+
+            margin: 2rem 0;
+
+        }
+
+        .quiz-result h2 {
+
+            font-size: 2rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+        .quiz-result p {
+
+            font-size: 1.2rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+        @media (max-width: 768px) {
+
+            .header {
+
+                flex-direction: column;
+
+                gap: 1rem;
+
+            }
+
+            .welcome-section h1 {
+
+                font-size: 2rem;
+
+            }
+
+            .features {
+
+                grid-template-columns: 1fr;
+
+            }
+
+            .quiz-header {
+
+                flex-direction: column;
+
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header class="header">
+
+            <div class="logo" onclick="location.reload()">🧠 Quizlet</div>
+
+            <div class="nav-buttons">
+
+                <button class="btn btn-primary" onclick="showPage('home')">Home</button>
+
+                <button class="btn btn-secondary" onclick="showPage('login')" id="loginBtn">Login</button>
+
+                <button class="btn btn-secondary" onclick="logout()" id="logoutBtn" style="display: none;">Logout</button>
+
+                <button class="btn btn-primary" onclick="showPage('scoreboard')">Scoreboard</button>
+
+            </div>
+
+        </header>
+
+        <!-- Home Page -->
+
+        <div id="home" class="page active">
+
+            <div class="welcome-section">
+
+                <h1>Welcome to Quizlet!</h1>
+
+                <p>Test your knowledge across multiple categories with our interactive quiz platform. Challenge yourself with timed questions, track your progress, and compete with others on our leaderboard!</p>
+
+            </div>
+
+            <div class="features">
+
+                <div class="feature-card">
+
+                    <h3>🚀 Space Trivia</h3>
+
+                    <p>Explore the cosmos with questions about planets, stars, and space exploration!</p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <h3>🧮 Math Brain Teasers</h3>
+
+                    <p>Challenge your mathematical thinking with puzzles and problem-solving questions!</p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <h3>🌍 Geography</h3>
+
+                    <p>Test your knowledge of countries, capitals, landmarks, and world geography!</p>
+
+                </div>
+
+                <div class="feature-card">
+
+                    <h3>🔬 Science</h3>
+
+                    <p>Discover fascinating facts about biology, chemistry, physics, and more!</p>
+
+                </div>
+
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+
+                <button class="btn btn-primary" onclick="checkLoginAndShowCategories()" style="font-size: 1.2rem; padding: 1rem 2rem;">Start Quiz Adventure!</button>
+
+            </div>
+
+        </div>
+
+        <!-- Login Page -->
+
+        <div id="login" class="page">
+
+            <div class="login-form">
+
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #667eea;">Login to Quizlet</h2>
+
+                <div class="form-group">
+
+                    <label for="username">Username:</label>
+
+                    <input type="text" id="username" placeholder="Enter your username">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">Password:</label>
+
+                    <input type="password" id="password" placeholder="Enter your password">
+
+                </div>
+
+                <button class="btn btn-primary" onclick="login()" style="width: 100%; margin-top: 1rem;">Login</button>
+
+                <p style="text-align: center; margin-top: 1rem; color: #666;">
+
+                    Demo: Use any username and password to login
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Categories Page -->
+
+        <div id="categories" class="page">
+
+            <div class="user-info" id="userInfo"></div>
+
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #667eea;">Choose Your Quiz Category</h2>
+
+            <div class="categories">
+
+                <div class="category-card" onclick="startQuiz('space')">
+
+                    <h3>🚀 Space Trivia</h3>
+
+                    <p>10 Questions • 5 minutes</p>
+
+                </div>
+
+                <div class="category-card" onclick="startQuiz('math')">
+
+                    <h3>🧮 Math Brain Teasers</h3>
+
+                    <p>10 Questions • 8 minutes</p>
+
+                </div>
+
+                <div class="category-card" onclick="startQuiz('geography')">
+
+                    <h3>🌍 Geography</h3>
+
+                    <p>10 Questions • 6 minutes</p>
+
+                </div>
+
+                <div class="category-card" onclick="startQuiz('science')">
+
+                    <h3>🔬 Science</h3>
+
+                    <p>10 Questions • 7 minutes</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Quiz Page -->
+
+        <div id="quiz" class="page">
+
+            <div class="quiz-header">
+
+                <h2 id="quizTitle">Quiz</h2>
+
+                <div class="timer" id="timer">05:00</div>
+
+            </div>
+
+            <div class="quiz-container">
+
+                <div class="question-card">
+
+                    <h3 id="questionText">Loading question...</h3>
+
+                    <div class="options" id="options"></div>
+
+                </div>
+
+                <div style="text-align: center; margin-top: 2rem;">
+
+                    <button class="btn btn-primary" onclick="nextQuestion()" id="nextBtn">Next Question</button>
+
+                </div>
+
+                <div style="text-align: center; margin-top: 1rem;">
+
+                    <span id="questionCounter">Question 1 of 10</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Scoreboard Page -->
+
+        <div id="scoreboard" class="page">
+
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #667eea;">🏆 Leaderboard</h2>
+
+            <div class="scoreboard" id="scoreboardContent">
+
+                <h3>Top Scores</h3>
+
+                <div id="scoresList"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // Global variables
+
+        let currentUser = null;
+
+        let currentQuiz = null;
+
+        let currentQuestionIndex = 0;
+
+        let score = 0;
+
+        let selectedAnswer = null;
+
+        let timer = null;
+
+        let timeLeft = 0;
+
+        // Quiz data
+
+        const quizData = {
+
+            space: {
+
+                title: "🚀 Space Trivia",
+
+                timeLimit: 300, // 5 minutes
+
+                questions: [
+
+                    {
+
+                        question: "Which planet is known as the Red Planet?",
+
+                        options: ["Venus", "Mars", "Jupiter", "Saturn"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "What is the largest planet in our solar system?",
+
+                        options: ["Saturn", "Neptune", "Jupiter", "Uranus"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "How many moons does Earth have?",
+
+                        options: ["0", "1", "2", "3"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "What is the closest star to Earth?",
+
+                        options: ["Alpha Centauri", "Sirius", "The Sun", "Proxima Centauri"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "Which space agency launched the Hubble Space Telescope?",
+
+                        options: ["ESA", "NASA", "JAXA", "Roscosmos"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "What is the name of Saturn's largest moon?",
+
+                        options: ["Europa", "Ganymede", "Titan", "Io"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "How long does it take for light from the Sun to reach Earth?",
+
+                        options: ["8 minutes", "1 hour", "1 day", "1 second"],
+
+                        correct: 0
+
+                    },
+
+                    {
+
+                        question: "What is the name of the galaxy that contains our solar system?",
+
+                        options: ["Andromeda", "Milky Way", "Whirlpool", "Sombrero"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "Which planet has the most extensive ring system?",
+
+                        options: ["Jupiter", "Saturn", "Uranus", "Neptune"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "What is the temperature of absolute zero?",
+
+                        options: ["-273°C", "-100°C", "-200°C", "-300°C"],
+
+                        correct: 0
+
+                    }
+
+                ]
+
+            },
+
+            math: {
+
+                title: "🧮 Math Brain Teasers",
+
+                timeLimit: 480, // 8 minutes
+
+                questions: [
+
+                    {
+
+                        question: "What is 15% of 200?",
+
+                        options: ["25", "30", "35", "40"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "If a triangle has angles of 60°, 60°, and 60°, what type of triangle is it?",
+
+                        options: ["Right", "Isosceles", "Equilateral", "Scalene"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the square root of 144?",
+
+                        options: ["11", "12", "13", "14"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "If x + 5 = 12, what is x?",
+
+                        options: ["6", "7", "8", "9"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "What is 7 × 8?",
+
+                        options: ["54", "56", "58", "60"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "What is the area of a circle with radius 5?",
+
+                        options: ["25π", "10π", "15π", "20π"],
+
+                        correct: 0
+
+                    },
+
+                    {
+
+                        question: "What is 2³?",
+
+                        options: ["6", "8", "9", "12"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "If you have 24 apples and give away 1/3, how many do you have left?",
+
+                        options: ["8", "12", "16", "18"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the next number in the sequence: 2, 4, 8, 16, ?",
+
+                        options: ["24", "28", "32", "36"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is 0.25 as a fraction?",
+
+                        options: ["1/2", "1/3", "1/4", "1/5"],
+
+                        correct: 2
+
+                    }
+
+                ]
+
+            },
+
+            geography: {
+
+                title: "🌍 Geography",
+
+                timeLimit: 360, // 6 minutes
+
+                questions: [
+
+                    {
+
+                        question: "What is the capital of Australia?",
+
+                        options: ["Sydney", "Melbourne", "Canberra", "Perth"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "Which is the longest river in the world?",
+
+                        options: ["Amazon", "Nile", "Mississippi", "Yangtze"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "How many continents are there?",
+
+                        options: ["5", "6", "7", "8"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "Which country has the most time zones?",
+
+                        options: ["Russia", "USA", "China", "France"],
+
+                        correct: 3
+
+                    },
+
+                    {
+
+                        question: "What is the smallest country in the world?",
+
+                        options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "Which mountainrange contains Mount Everest?",
+
+                        options: ["Andes", "Alps", "Himalayas", "Rockies"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the largest ocean?",
+
+                        options: ["Atlantic", "Indian", "Arctic", "Pacific"],
+
+                        correct: 3
+
+                    },
+
+                    {
+
+                        question: "Which desert is the largest in the world?",
+
+                        options: ["Sahara", "Gobi", "Antarctica", "Arabian"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the capital of Canada?",
+
+                        options: ["Toronto", "Vancouver", "Ottawa", "Montreal"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "Which country is both in Europe and Asia?",
+
+                        options: ["Russia", "Turkey", "Kazakhstan", "All of the above"],
+
+                        correct: 3
+
+                    }
+
+                ]
+
+            },
+
+            science: {
+
+                title: "🔬 Science",
+
+                timeLimit: 420, // 7 minutes
+
+                questions: [
+
+                    {
+
+                        question: "What is the chemical symbol for gold?",
+
+                        options: ["Go", "Gd", "Au", "Ag"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "How many bones are in an adult human body?",
+
+                        options: ["206", "208", "210", "212"],
+
+                        correct: 0
+
+                    },
+
+                    {
+
+                        question: "What gas do plants absorb from the atmosphere?",
+
+                        options: ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the hardest natural substance?",
+
+                        options: ["Gold", "Iron", "Diamond", "Quartz"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the speed of light?",
+
+                        options: ["300,000 km/s", "150,000 km/s", "450,000 km/s", "600,000 km/s"],
+
+                        correct: 0
+
+                    },
+
+                    {
+
+                        question: "Which organ produces insulin?",
+
+                        options: ["Liver", "Kidney", "Pancreas", "Heart"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the most abundant gas in Earth's atmosphere?",
+
+                        options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "How many chambers does a human heart have?",
+
+                        options: ["2", "3", "4", "5"],
+
+                        correct: 2
+
+                    },
+
+                    {
+
+                        question: "What is the pH of pure water?",
+
+                        options: ["6", "7", "8", "9"],
+
+                        correct: 1
+
+                    },
+
+                    {
+
+                        question: "Which scientist developed the theory of evolution?",
+
+                        options: ["Einstein", "Newton", "Darwin", "Galileo"],
+
+                        correct: 2
+
+                    }
+
+                ]
+
+            }
+
+        };
+
+        // Load scores from memory
+
+        let scores = [
+
+            { username: "QuizMaster", category: "Space Trivia", score: 95, date: "2024-01-15" },
+
+            { username: "Brainiac", category: "Math Brain Teasers", score: 88, date: "2024-01-14" },
+
+            { username: "Explorer", category: "Geography", score: 92, date: "2024-01-13" },
+
+            { username: "Scientist", category: "Science", score: 85, date: "2024-01-12" },
+
+            { username: "StarGazer", category: "Space Trivia", score: 78, date: "2024-01-11" }
+
+        ];
+
+        // Page navigation
+
+        function showPage(pageId) {
+
+            document.querySelectorAll('.page').forEach(page => {
+
+                page.classList.remove('active');
+
+            });
+
+            document.getElementById(pageId).classList.add('active');
+
+            
+
+            if (pageId === 'scoreboard') {
+
+                displayScoreboard();
+
+            }
+
+        }
+
+        // Login functionality
+
+        function login() {
+
+            const username = document.getElementById('username').value.trim();
+
+            const password = document.getElementById('password').value.trim();
+
+            
+
+            if (username && password) {
+
+                currentUser = username;
+
+                document.getElementById('loginBtn').style.display = 'none';
+
+                document.getElementById('logoutBtn').style.display = 'inline-block';
+
+                document.getElementById('userInfo').textContent = `Welcome, ${currentUser}! 👋`;
+
+                showPage('categories');
+
+            } else {
+
+                alert('Please enter both username and password');
+
+            }
+
+        }
+
+        // Logout functionality
+
+        function logout() {
+
+            currentUser = null;
+
+            document.getElementById('loginBtn').style.display = 'inline-block';
+
+            document.getElementById('logoutBtn').style.display = 'none';
+
+            document.getElementById('username').value = '';
+
+            document.getElementById('password').value = '';
+
+            showPage('home');
+
+        }
+
+        // Check login and show categories
+
+        function checkLoginAndShowCategories() {
+
+            if (currentUser) {
+
+                showPage('categories');
+
+            } else {
+
+                showPage('login');
+
+            }
+
+        }
+
+        // Start quiz
+
+        function startQuiz(category) {
+
+            if (!currentUser) {
+
+                alert('Please login first!');
+
+                showPage('login');
+
+                return;
+
+            }
+
+            currentQuiz = quizData[category];
+
+            currentQuestionIndex = 0;
+
+            score = 0;
+
+            selectedAnswer = null;
+
+            
+
+            document.getElementById('quizTitle').textContent = currentQuiz.title;
+
+            timeLeft = currentQuiz.timeLimit;
+
+            
+
+            showPage('quiz');
+
+            displayQuestion();
+
+            startTimer();
+
+        }
+
+        // Display current question
+
+        function displayQuestion() {
+
+            const question = currentQuiz.questions[currentQuestionIndex];
+
+            document.getElementById('questionText').textContent = question.question;
+
+            document.getElementById('questionCounter').textContent = `Question ${currentQuestionIndex + 1} of ${currentQuiz.questions.length}`;
+
+            
+
+            const optionsContainer = document.getElementById('options');
+
+            optionsContainer.innerHTML = '';
+
+            
+
+            question.options.forEach((option, index) => {
+
+                const optionDiv = document.createElement('div');
+
+                optionDiv.className = 'option';
+
+                optionDiv.textContent = option;
+
+                optionDiv.onclick = () => selectOption(index, optionDiv);
+
+                optionsContainer.appendChild(optionDiv);
+
+            });
+
+            
+
+            selectedAnswer = null;
+
+            document.getElementById('nextBtn').textContent = 
+
+                currentQuestionIndex === currentQuiz.questions.length - 1 ? 'Finish Quiz' : 'Next Question';
+
+        }
+
+        // Select option
+
+        function selectOption(index, element) {
+
+            document.querySelectorAll('.option').forEach(opt => {
+
+                opt.classList.remove('selected');
+
+            });
+
+            element.classList.add('selected');
+
+            selectedAnswer = index;
+
+        }
+
+        // Next question
+
+        function nextQuestion() {
+
+            if (selectedAnswer === null) {
+
+                alert('Please select an answer!');
+
+                return;
+
+            }
+
+            
+
+            // Check if answer is correct
+
+            if (selectedAnswer === currentQuiz.questions[currentQuestionIndex].correct) {
+
+                score++;
+
+            }
+
+            
+
+            currentQuestionIndex++;
+
+            
+
+            if (currentQuestionIndex >= currentQuiz.questions.length) {
+
+                finishQuiz();
+
+            } else {
+
+                displayQuestion();
+
+            }
+
+        }
+
+        // Timer functionality
+
+        function startTimer() {
+
+            timer = setInterval(() => {
+
+                timeLeft--;
+
+                updateTimerDisplay();
+
+                
+
+                if (timeLeft <= 0) {
+
+                    clearInterval(timer);
+
+                    finishQuiz();
+
+                }
+
+            }, 1000);
+
+        }
+
+        function updateTimerDisplay() {
+
+            const minutes = Math.floor(timeLeft / 60);
+
+            const seconds = timeLeft % 60;
+
+            document.getElementById('timer').textContent = 
+
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+        }
+
+        // Finish quiz
+
+        function finishQuiz() {
+
+            clearInterval(timer);
+
+            
+
+            const percentage = Math.round((score / currentQuiz.questions.length) * 100);
+
+            
+
+            // Add score to leaderboard
+
+            scores.unshift({
+
+                username: currentUser,
+
+                category: currentQuiz.title,
+
+                score: percentage,
+
+                date: new Date().toISOString().split('T')[0]
+
+            });
+
+            
+
+            // Sort scores by score descending
+
+            scores.sort((a, b) => b.score - a.score);
+
+            
+
+            // Keep only top 10 scores
+
+            scores = scores.slice(0, 10);
+
+            
+
+            // Show result
+
+            const quizContainer = document.querySelector('.quiz-container');
+
+            quizContainer.innerHTML = `
+
+                <div class="quiz-result">
+
+                    <h2>🎉 Quiz Complete!</h2>
+
+                    <p>You scored ${score} out of ${currentQuiz.questions.length} questions</p>
+
+                    <p>That's ${percentage}%!</p>
+
+                    <div style="margin-top: 2rem;">
+
+                        <button class="btn btn-primary" onclick="showPage('categories')" style="margin-right: 1rem;">Take Another Quiz</button>
+
+                        <button class="btn btn-secondary" onclick="showPage('scoreboard')">View Scoreboard</button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+        // Display scoreboard
+
+        function displayScoreboard() {
+
+            const scoresList = document.getElementById('scoresList');
+
+            scoresList.innerHTML = '';
+
+            
+
+            scores.forEach((score, index) => {
+
+                const scoreItem = document.createElement('div');
+
+                scoreItem.className = 'score-item';
+
+                scoreItem.innerHTML = `
+
+                    <div>
+
+                        <strong>#${index + 1} ${score.username}</strong><br>
+
+                        <small>${score.category} • ${score.date}</small>
+
+                    </div>
+
+                    <div style="font-size: 1.2rem; font-weight: bold; color: #667eea;">
+
+                        ${score.score}%
+
+                    </div>
+
+                `;
+
+                scoresList.appendChild(scoreItem);
+
+            });
+
+        }
+
+        // Initialize scoreboard on page load
+
+        displayScoreboard();
+
+        // Handle Enter key in login form
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            document.getElementById('username').addEventListener('keypress', function(e) {
+
+                if (e.key === 'Enter') {
+
+                    login();
+
+                }
+
+            });
+
+            
+
+            document.getElementById('password').addEventListener('keypress', function(e) {
+
+                if (e.key === 'Enter') {
+
+                    login();
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96f0542d10d6f920',t:'MTc1NTE3MzIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>
